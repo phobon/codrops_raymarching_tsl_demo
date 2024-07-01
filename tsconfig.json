@@ -3,12 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/routes/*": ["./src/routes/*"],
       "@/components/*": ["./src/components/*"],
-      "@/data/*": ["./src/data/*"],
-      "@/stores/*": ["./src/stores/*"],
-      "@/helpers/*": ["./src/helpers/*"],
-      "@/design/*": ["./src/design/*"],
       // https://stackoverflow.com/questions/73019348/component-cannot-be-used-as-a-jsx-component-its-element-type-reactelementan
       "react": ["./node_modules/@types/react"]
     },
@@ -32,6 +27,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/design", "**/*.ts", "**/*.tsx"],
+  "include": ["src", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

@@ -26,10 +26,6 @@ dist-ssr
 # .vscode Debugging
 .vscode/*-debug-profile
 
-# panda generated utils
-/src/design/*
-!/src/design/index.ts
-
 /.yarn
 .pnp.cjs
 .pnp.loader.mjs

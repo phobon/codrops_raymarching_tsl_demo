@@ -1,35 +1,57 @@
-import { Canvas as _Canvas } from '@react-three/fiber'
+import { Canvas, CanvasProps } from '@react-three/fiber'
+import { useEffect, useState } from 'react'
 
-import { AdaptiveDpr, Preload, StatsGl, View } from '@react-three/drei'
-import { PerspectiveCamera } from '@/utils/perspective_camera'
-export type SceneProps = {
-  debug?: boolean
-  frameloop?: 'always' | 'demand' | 'never'
-} & any
+import { AdaptiveDpr } from '@react-three/drei'
 
-const Canvas = ({ debug = false, frameloop = 'always', ...props }: SceneProps) => {
+import WebGPUCapabilities from 'three/examples/jsm/capabilities/WebGPU.js'
+import WebGPURenderer from 'three/examples/jsm/renderers/webgpu/WebGPURenderer.js'
+import { ACESFilmicToneMapping, SRGBColorSpace } from 'three'
+
+export type WebGPUCanvasProps = any
+
+const WebGPUCanvas = ({
+  webglFallback = true,
+  frameloop = 'always',
+  children,
+  debug,
+  ...props
+}: React.PropsWithChildren<WebGPUCanvasProps>) => {
+  const [canvasFrameloop, setCanvasFrameloop] = useState<CanvasProps['frameloop']>('never')
+  const [initialising, setInitialising] = useState(true)
+
+  useEffect(() => {
+    if (initialising) return
+
+    setCanvasFrameloop(frameloop)
+  }, [initialising, frameloop])
+
+  const webGPUAvailable = WebGPUCapabilities.isAvailable()
+
   return (
-    <_Canvas id='__canvas' {...props} frameloop={frameloop}>
-      <Preload all />
+    <Canvas
+      {...props}
+      id='gl'
+      frameloop={canvasFrameloop}
+      gl={(canvas) => {
+        const renderer = new WebGPURenderer({
+          canvas: canvas as HTMLCanvasElement,
+          antialias: true,
+          alpha: true,
+          forceWebGL: !webGPUAvailable,
+        })
+        renderer.toneMapping = ACESFilmicToneMapping
+        renderer.outputColorSpace = SRGBColorSpace
+        renderer.init().then(() => {
+          setInitialising(false)
+        })
 
+        return renderer
+      }}
+    >
       <AdaptiveDpr />
-
-      <View.Port />
-
-      {debug ? <StatsGl className='static__statsgl' /> : null}
-
-      <PerspectiveCamera makeDefault />
-    </_Canvas>
+      {children}
+    </Canvas>
   )
 }
 
-// const FBOScene = ({ ...props }) => {
-//   const renderTarget = useFBO()
-//   return (
-//     <SceneFBORenderer renderTarget={renderTarget} {...props}>
-//       <meshStandardMaterial map={renderTarget.texture} />
-//     </SceneFBORenderer>
-//   )
-// }
-
-export default Canvas
+export default WebGPUCanvas

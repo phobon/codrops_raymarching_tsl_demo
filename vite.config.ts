@@ -1,11 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import glsl from 'vite-plugin-glsl'
-import path from 'path'
 
-import { TanStackRouterVite } from '@tanstack/router-vite-plugin'
-
-// https://vitejs.dev/config/
 export default defineConfig({
   optimizeDeps: {
     esbuildOptions: {
@@ -15,15 +11,5 @@ export default defineConfig({
   build: {
     target: 'esnext',
   },
-  plugins: [react(), glsl(), TanStackRouterVite()],
-  resolve: {
-    alias: {
-      '@/routes': path.resolve(__dirname, 'src/routes'),
-      '@/components': path.resolve(__dirname, 'src/components'),
-      '@/data': path.resolve(__dirname, 'src/data'),
-      '@/stores': path.resolve(__dirname, 'src/stores'),
-      '@/utils': path.resolve(__dirname, 'src/utils'),
-      '@/design': path.resolve(__dirname, 'src/design'),
-    },
-  },
+  plugins: [react(), glsl()],
 })

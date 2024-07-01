@@ -1,4 +1,3 @@
-import { View } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 
@@ -8,7 +7,7 @@ const placeholderMaterial = new MeshBasicNodeMaterial()
 placeholderMaterial.colorNode = vec3(uv(), 1.0)
 placeholderMaterial.toneMapped = false
 
-export const PlaceholderImpl = () => {
+export const Placeholder = () => {
   const meshRef = useRef<any>()
   useFrame(() => {
     meshRef.current.rotation.x += 0.01
@@ -16,18 +15,10 @@ export const PlaceholderImpl = () => {
   })
 
   return (
-    <mesh scale={[150, 150, 150]} ref={meshRef}>
+    <mesh ref={meshRef}>
       <boxGeometry args={[1, 1, 1]} />
       {/* <primitive object={placeholderMaterial} /> */}
       <meshNormalMaterial />
     </mesh>
-  )
-}
-
-export const Placeholder = ({ className = '' }) => {
-  return (
-    <View className={className}>
-      <PlaceholderImpl />
-    </View>
   )
 }
