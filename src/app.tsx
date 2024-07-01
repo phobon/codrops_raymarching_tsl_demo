@@ -1,10 +1,10 @@
 import Canvas from './components/canvas'
-import { Placeholder } from './components/canvas/placeholder'
+import Raymarching from './components/raymarching'
 
 export const App = () => {
   return (
     <Canvas>
-      <Placeholder />
+      <Raymarching />
     </Canvas>
   )
 }
