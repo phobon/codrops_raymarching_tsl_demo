@@ -1,12 +1,3 @@
-# Static°
+# Liquid Raymarching Scene with Three.js Shading Language and React-Three-Fiber
 
-Starter template with the following startup project features:
-
-Built on the following technology:
-
-- [Vite](https://nextjs.org/) app directory
-- [ThreeJS](https://threejs.org/)
-- [React 3 Fiber](https://github.com/pmndrs/react-three-fiber)
-- [Drei](https://github.com/pmndrs/drei)
-- [PandaCSS](https://panda-css.com/)
-- [MDX](https://mdxjs.com/)
+An introduction to Raymarching using the power of Signed Distance Fields (SDFs) and simple lighting to create impressive liquid shape effects
